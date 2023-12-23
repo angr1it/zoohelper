@@ -113,7 +113,7 @@ class Encoder:
 
     def __encode_null_elem(self, key: str, possible_values: list) -> np.array:
         warnings.warn(f"{key}: Value was missed.")
-        encoded = np.zeros(len(possible_values))
+        encoded = np.array([np.nan] * len(possible_values))
         return encoded
 
     def __encode_numeric_elem(
