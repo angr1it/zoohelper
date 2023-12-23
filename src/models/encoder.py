@@ -112,8 +112,18 @@ class Encoder:
         return encoded_record
 
     def __encode_null_elem(self, key: str, possible_values: list) -> np.array:
-        warnings.warn(f"{key}: Value was missed.")
-        encoded = np.array([np.nan] * len(possible_values))
+        default_values = {
+            'rectal_temp': [37.8], 'pulse': [35], 'respiratory_rate': [9], 'nasogastric_reflux_ph': [4],
+            'packed_cell_volume': [40], 'total_protein': [7], 'abdomo_protein': [2], 'abdomen': [0, 0, 0, 1, 0],
+            'abdominal_distention': [0, 1, 0, 0], 'abdomo_appearance': [1, 0, 0], 'age': [1, 0],
+            'capillary_refill_time': [0, 1, 0], 'cp_data': [1, 0], 'mucous_membrane': [0, 0, 0, 1, 0, 0], 
+            'nasogastric_reflux': [1, 0, 0], 'nasogastric_tube': [0, 0, 1], 'pain': [1, 0, 0, 0, 0], 
+            'peripheral_pulse': [0, 0, 1, 0], 'peristalsis': [0, 0, 0, 1], 'rectal_exam_feces': [0, 0, 0, 1],
+            'surgery': [1, 0], 'surgical_lesion': [1, 0], 'temp_of_extremities': [0, 0, 1, 0], 
+            'lesion_1': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }
+        warnings.warn(f'{key}: Value was missed.')
+        encoded = np.array(default_values[key])
         return encoded
 
     def __encode_numeric_elem(
