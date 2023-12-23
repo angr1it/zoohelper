@@ -21,6 +21,12 @@
 docker-compose --profile prod up
 ```
 
+### 3. Запуск на локальной машине
+Из корневой директории репозитория проекта:
+```
+pip install -r requirements.txt
+python ./src/bot.py
+```
 
 ### Работа с ботом
 

@@ -19,7 +19,12 @@ load_dotenv()
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 MODEL_PATH = os.environ.get("MODEL_PATH")
 
-xgb = pickle.load(open(MODEL_PATH, "rb"))
+dirname = os.path.dirname(__file__)
+dirname = os.path.split(dirname)[0]
+model_path = os.path.join(dirname, MODEL_PATH)
+
+
+xgb = pickle.load(open(model_path, "rb"))
 model = Model(xgb)
 
 bot = telebot.TeleBot(BOT_TOKEN)
