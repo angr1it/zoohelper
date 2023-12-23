@@ -6,7 +6,7 @@ import telebot
 
 from inference.model_inference import process
 from models.model import Model
-from inference.docs import HELP_DOC, dict_to_doc, PROCESS_DOC
+from inference.docs import HELP_DOC, dict_to_doc, PROCESS_DOC, REQUEST_HELP, HELLO
 
 load_dotenv()
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
@@ -16,6 +16,11 @@ xgb = pickle.load(open(MODEL_PATH, "rb"))
 model = Model(xgb)
 
 bot = telebot.TeleBot(BOT_TOKEN)
+
+
+@bot.message_handler(commands=["start"])
+def start(message):
+    bot.reply_to(message, HELLO)
 
 
 @bot.message_handler(commands=["help"])
@@ -39,6 +44,11 @@ def process_handler(message):
 
 def process_following(message):
     bot.send_message(message.chat.id, process(model, message.text))
+
+
+@bot.message_handler()
+def other(message):
+    bot.reply_to(message, REQUEST_HELP)
 
 
 print("Bot started")
