@@ -6,7 +6,14 @@ import telebot
 
 from inference.model_inference import process
 from models.model import Model
-from inference.docs import HELP_DOC, dict_to_doc, PROCESS_DOC, REQUEST_HELP, HELLO
+from inference.docs import (
+    HELP_DOC,
+    model_features,
+    PROCESS_DOC,
+    REQUEST_HELP,
+    HELLO,
+    model_features_lesion,
+)
 
 load_dotenv()
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
@@ -30,7 +37,12 @@ def help(message):
 
 @bot.message_handler(commands=["features"])
 def features(message):
-    bot.reply_to(message, dict_to_doc(model.get_features_dict()))
+    bot.reply_to(message, model_features(model))
+
+
+@bot.message_handler(commands=["features_lesion"])
+def feaures_lesion(message):
+    bot.reply_to(message, model_features_lesion(model))
 
 
 @bot.message_handler(commands=["process"])
