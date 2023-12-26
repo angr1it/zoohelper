@@ -25,10 +25,12 @@ class Model:
 
         try:
             y = self.model.predict(encoded_X)
+            p = self.model.predict_proba(encoded_X)
+            p = max(p[0][2], p[0][:2].mean())
         except AttributeError:
             raise AttributeError("Model must have predict method")
 
         if class_names:
             y = [self.encoder.outcome_mapping[i] for i in y]
 
-        return y
+        return y, p
