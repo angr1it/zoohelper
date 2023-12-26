@@ -39,6 +39,11 @@ HELLO = inspect.cleandoc(
     """
 )
 
+SUCCESS = inspect.cleandoc(
+    """
+    Рекомендация    
+    """
+)
 
 def model_features(model: Model) -> str:
     """Представление словаря с описанием параметров модели в читаемом виде;
