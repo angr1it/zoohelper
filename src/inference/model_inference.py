@@ -50,7 +50,10 @@ def prepare_output(result) -> str:
     Returns:
         str: строка с ответом.
     """
-    return f'Результат: {str(result)}'
+    if result[0][0] == 'lived':
+        return f'Рекомендация: лечение будет эффективным с вероятностью {result[1] * 100: .2f}%.'
+
+    return f'Рекомендация: лечение не эффективно с вероятностью {result[1] * 100: .2f}%.'
 
 
 def process(model: Model, message: str) -> str:
