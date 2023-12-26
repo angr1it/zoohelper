@@ -5,6 +5,18 @@ from inference.errors import ParseError, InternalError, WrongParamsError
 
 
 def parse_input(features: dict, message: str) -> dict:
+    """Парсинг входящего сообщения.
+
+    Args:
+        features (dict): словарь, описывающий параметры модели; Model.get_features_dict()
+        message (str): сообщение;
+
+    Raises:
+        ParseError: если мессендж не соответствует формату ввода;
+
+    Returns:
+        dict: содержащий параметры на вход модели.
+    """
     try:
         message = re.sub("^\s+|\n|\r|\s+$", "", message)
         message = message.replace(" ", "")
@@ -30,10 +42,30 @@ def parse_input(features: dict, message: str) -> dict:
 
 
 def prepare_output(result) -> str:
-    return f'Результат: {str(result)}'
+    """Возвращает сообщение с ответом инференса;
+
+    Args:
+        result (_type_): результат выполнения инференса;
+
+    Returns:
+        str: строка с ответом.
+    """
+    if result[0][0] == 'lived':
+        return f'Рекомендация: лечение будет эффективным с вероятностью {result[1] * 100: .2f}%.'
+
+    return f'Рекомендация: лечение не эффективно с вероятностью {result[1] * 100: .2f}%.'
 
 
 def process(model: Model, message: str) -> str:
+    """Запуск инференса модели;
+
+    Args:
+        model (Model): модель;
+        message (str): необработанное входное сообщение;
+
+    Returns:
+        str: сообщение-ответ.
+    """
     try:
         data = parse_input(model.get_features_dict(), message)
         result = model.predict(data)
