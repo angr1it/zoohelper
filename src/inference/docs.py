@@ -41,6 +41,14 @@ HELLO = inspect.cleandoc(
 
 
 def model_features(model: Model) -> str:
+    """Представление словаря с описанием параметров модели в читаемом виде;
+
+    Args:
+        model (Model): текущая модель, поддерживает Model.get_features_dict();
+
+    Returns:
+        str: строка-сообщение с кратким описанием параметров модели.
+    """
     d = model.get_features_dict()
 
     nums = []
@@ -78,5 +86,15 @@ def model_features(model: Model) -> str:
 
 
 def model_features_lesion(model: Model) -> str:
+    """Отдельное описание возможных значений параметра lesion_1;
+
+    Вынесено в отдельную комманду, для облегчения представления остальной части параметров;
+
+    Args:
+        model (Model): текущая модель, поддерживает Model.get_features_dict();
+
+    Returns:
+        str: строка-сообщение с перечислением возможных значений lesion_1.
+    """
     d = model.get_features_dict()
     return f"lesion_1 possible values:\n{', '.join(d['lesion_1'])}"
