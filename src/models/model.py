@@ -12,19 +12,19 @@ class Model:
 
     def get_features_dict(self):
         """
-            Returns dict that contains every feature that must be encoded 
-            and the order of encoding
+        Returns dict that contains every feature that must be encoded
+        and the order of encoding
         """
         return self.encoder.get_features_dict()
 
     def predict(self, X, class_names=True):
         """
-            Predict class baed on the input feature vector
-            
-            input: X - feature vector, can be list or dict
-                   if X is a dict, returns only one class for one record
-                   if X is a list, function returns many classes - one for each record
-            returns: predicted class and a corresponding probability       
+        Predict class baed on the input feature vector
+
+        input: X - feature vector, can be list or dict
+               if X is a dict, returns only one class for one record
+               if X is a list, function returns many classes - one for each record
+        returns: predicted class and a corresponding probability
         """
         if self.model is None:
             warnings.warn("Model is not defined! Load the model first")
@@ -42,7 +42,11 @@ class Model:
         try:
             y = self.model.predict(encoded_X)
             p = self.model.predict_proba(encoded_X)
-            p = max(p[0][2], p[0][:2].mean())
+            if y[0] == 2:
+                p = p[0][2]
+            else:
+                p = p[0][:2].sum()
+
         except AttributeError:
             raise AttributeError("Model must have predict and predict_proba methods")
 

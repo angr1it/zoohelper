@@ -18,7 +18,7 @@ def parse_input(features: dict, message: str) -> dict:
         dict: содержащий параметры на вход модели.
     """
     try:
-        message = re.sub("^\s+|\n|\r|\s+$", "", message)
+        message = re.sub("^\s+|\n|\r|\s+$", "", message)  # noqa: W605
         message = message.replace(" ", "")
 
         params = {}

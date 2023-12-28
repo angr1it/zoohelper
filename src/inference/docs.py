@@ -19,9 +19,10 @@ PROCESS_DOC = inspect.cleandoc(
     Введите переменные в формате key: value через запятую.
     Например:
     surgery: yes,
-    age": adult,
+    age: adult,
     rectal_temp: 38.1,
     pulse: 132.0,
+    pain: severe_pain
     """
 )
 
@@ -39,11 +40,6 @@ HELLO = inspect.cleandoc(
     """
 )
 
-SUCCESS = inspect.cleandoc(
-    """
-    Рекомендация    
-    """
-)
 
 def model_features(model: Model) -> str:
     """Представление словаря с описанием параметров модели в читаемом виде;
